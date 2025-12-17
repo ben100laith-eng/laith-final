@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-color: #2C3E50;    /* Dark Blue/Grey */
+            --secondary-color: #7F8C8D;  /* Grey */
+            --accent-color: #00FFFF;     /* Cyan/Aqua */
+            --bg-color: #FFFFFF;         /* White */
+            --text-color: #333333;
+            --light-bg: #f4f6f7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            border-radius: 8px;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary-color);
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* --- ABOUT SECTION --- */
+        #about {
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+            background-color: var(--light-bg);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image figure {
+            position: relative;
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            max-width: 400px;
+            border: 5px solid var(--primary-color);
+            box-shadow: 15px 15px 0px var(--secondary-color);
+        }
+
+        .about-image figcaption {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+
+        .about-text h1 {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .about-text h2 {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .about-text .highlight {
+            color: #2980b9; /* A shade lighter than primary or custom color */
+            font-weight: bold;
+            background: linear-gradient(120deg, rgba(0,255,255,0.3) 0%, rgba(0,255,255,0.3) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 88%;
+        }
+
+        /* --- SKILLS SECTION --- */
+        #skills {
+            background-color: var(--bg-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-bottom: 4px solid var(--accent-color);
+        }
+
+        .skill-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .skill-card h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        /* --- PROJECTS SECTION --- */
+        #projects {
+            background-color: var(--light-bg);
+        }
+
+        .project-item {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .project-header {
+            margin-bottom: 20px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 15px;
+        }
+
+        .project-header h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .project-header p {
+            color: var(--secondary-color);
+        }
+
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .project-gallery img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .project-gallery img:hover {
+            transform: scale(1.03);
+        }
+
+        .project-desc {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--text-color);
+        }
+
+        /* --- SERVICES SECTION --- */
+        #services {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        #services .section-title {
+            color: white;
+        }
+
+        #services .section-title::after {
+            background-color: var(--accent-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .service-card:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .service-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #1a252f; /* Darker shade of primary */
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-color);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-image img {
+                margin: 0 auto;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none; /* In a real scenario, you'd add JS for a hamburger menu */
+            }
+            
+            /* Simple mobile menu fix for CSS-only */
+            .nav-links.mobile-visible {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background: var(--primary-color);
+                padding: 20px;
+                text-align: center;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="D01FD18A-B3F8-4F40-BE6B-81E0FF864590.jpeg" class="logo">PORTFOLIO <i class="fa-solid fa-angle-up"></i></a>
+            <!-- Using Checkbox hack for pure CSS mobile menu toggle could be done, but keeping it simple for now -->
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about" target="_self">About Me</a></li>
+                <li><a href="#skills" target="_self">Skills</a></li>
+                <li><a href="#projects" target="_self">Projects</a></li>
+                <li><a href="#services" target="_self">Services</a></li>
+                <li><a href="#contact" target="_self">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ABOUT ME SECTION -->
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <figure>
+                        <!-- Placeholder Image -->
+                        <img src="me.jpg" alt="Profile Photo">
+                        <figcaption>Creative Professional & Tech Enthusiast</figcaption>
+                    </figure>
+                </div>
+                <div class="about-text">
+                    <h2>Hello, I am</h2>
+                    <h1>Laith Al-sharief</h1>
+                    <h3>Major: <span class="highlight">Digital Media Arts</span></h3>
+                    <p>
+                        I am a passionate creative professional with a diverse background in digital arts. 
+                        My journey began in college where I specialized in combining technical skill with artistic vision.
+                        I love turning complex ideas into visual reality through design, video, and 3D space.
+                    </p>
+                    <br>
+                    <a href="#projects" class="btn">View My Work</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SKILLS SECTION -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-grid">
+                <!-- Skill 1 -->
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-pen-nib"></i>
+                    </div>
+                    <h3>Graphic Designer</h3>
+                    <p>Expert in creating visual concepts, branding, and layouts that captivate audiences.</p>
+                </div>
+                <!-- Skill 2 -->
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Editor</h3>
+                    <p>Proficient in cutting, splicing, and editing film footage to tell compelling stories.</p>
+                </div>
+                <!-- Skill 3 -->
+                <div class="skill-card">
+                    <div class="skill-icon">
+                        <i class="fas fa-cube"></i>
+                    </div>
+                    <h3>3D Modelling</h3>
+                    <p>Skilled in sculpting and rendering detailed 3D assets and environments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Recent Projects</h2>
+
+            <!-- Project 1 -->
+            <article class="project-item">
+                <div class="project-header">
+                    <h3>Graphic Design</h3>
+                    <p>Creating posters out of Nothing</p>
+                </div>
+                <div class="project-gallery">
+                    <img src="IMG_6227.jpeg" alt="Project 1 Image 1">
+                    <img src="IMG_6226.jpeg" alt="Project 1 Image 2">
+                    <img src="IMG_6225.jpeg" alt="Project 1 Image 3">
+                </div>
+                <figure class="project-desc">
+                    <figcaption>
+                        <strong>About these projects:</strong> A posters combining what i love with my skills
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- Project 2 -->
+            <article class="project-item">
+                <div class="project-header">
+                    <h3>Posters</h3>
+                    <p>infographics</p>
+                </div>
+                <div class="project-gallery">
+                    <img src="IMG_6224.jpeg" alt="Project 2 Image 1">
+                    <img src="IMG_6222.jpeg" alt="Project 2 Image 2">
+                    <img src="IMG_6221.jpeg" alt="Project 2 Image 3">
+                </div>
+                <figure class="project-desc">
+                    <figcaption>
+                        <strong>About these projects:</strong> Infographics with a lot of passion and love turmed into complex posters with heavy theme
+                    </figcaption>
+                </figure>
+            </article>
+
+            <!-- Project 3 -->
+            <article class="project-item">
+                <div class="project-header">
+                    <h3>Designs</h3>
+                    <p>Graphic Design</p>
+                </div>
+                <div class="project-gallery">
+                    <img src="IMG_6219.jpeg" alt="Project 3 Image 1">
+                    <img src="f4109ea9-b957-4954-b00c-b8046dfe489d.jpeg" alt="Project 3 Image 2">
+                    
+                </div>
+                <figure class="project-desc">
+                    <figcaption>
+                        <strong>About these projects:</strong> a design that showcases what i can do with my knowledge and passion
+                </figure>
+            </article>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="services">
+        <div class="container">
+            <h2 class="section-title">My Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <i class="fas fa-film"></i>
+                    <h3>Video Editing</h3>
+                    <p>Commercials, YouTube content, and cinematic trailers edited to perfection.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-cubes"></i>
+                    <h3>3D Modelling</h3>
+                    <p>Character modelling, architectural visualization, and product rendering.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-paint-brush"></i>
+                    <h3>Graphic Design</h3>
+                    <p>UI/UX design, logo creation, and print media layouts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Navigation Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About Me</a></li>
+                        <li><a href="#skills">My Skills</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#services">Services</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="footer-col">
+                    <h4>Connect With Me</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com"@laithalsharief target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="mailto:laithalsharieff@gmail.com" title="Gmail"><i class="fas fa-envelope"></i></a>
+                        <a href="https://whatsapp.com/0777382646" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://linkedin.com" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p style="margin-top: 20px; color: var(--secondary-color);">
+                        Open for freelance opportunities.
+                    </p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Portfolio. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script to handle mobile menu toggle if needed
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+
+        menuToggle.addEventListener('click', () => {
+            if(navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '70px';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = '#2C3E50';
+                navLinks.style.padding = '20px';
+                navLinks.style.textAlign = 'center';
+            }
+        });
+
+        // Reset menu on resize
+        window.addEventListener('resize', () => {
+            if(window.innerWidth > 768) {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'row';
+                navLinks.style.position = 'static';
+                navLinks.style.padding = '0';
+                navLinks.style.background = 'transparent';
+            } else {
+                navLinks.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
